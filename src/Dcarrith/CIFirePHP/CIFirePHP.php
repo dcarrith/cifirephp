@@ -10,24 +10,29 @@ class CIFirePHP {
 
         function __construct($name, $environment) {
 
+		$dummy = false;
+
                 if($environment == "production"){
-                        $_dummy = true;
-                } else {
-                        $_dummy = false;
+                        $dummy = true;
                 }
 
-                if (!$_dummy) {
+		$this->_dummy = $dummy;
 
-                        $_logger = new Logger($name);
-                        $_logger->pushHandler(new FirePHPHandler());
-                        $_logger->addInfo("Logger has been initialized.");
+                if (!$dummy) {
+
+                        $this->_logger = new Logger($name);
+                        $this->_logger->pushHandler(new FirePHPHandler());
+                        $this->_logger->addInfo("Logger has been initialized.");
                 }
         }
 
         function log($variable, $label) {
 
-                if (!$_dummy) {
-                        $_logger->addInfo($label, $variable);
+                if (!$this->_dummy) {
+			if (!is_array($label)) {
+				$label = array($label);
+			}
+                        $this->_logger->addInfo($variable, $label);
                 }
         }
 }
