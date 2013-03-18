@@ -1,4 +1,4 @@
-<?php namespace DCarrith\CIFirePHP;
+<?php namespace Dcarrith\CIFirePHP;
 
 use Illuminate\Support\Facades\Facade;
 

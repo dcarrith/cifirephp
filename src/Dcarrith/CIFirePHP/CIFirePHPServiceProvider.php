@@ -31,8 +31,8 @@ class CIFirePHPServiceProvider extends ServiceProvider {
 	{
 		$this->app['cifirephp'] = $this->app->share(function($app)
 		{
-			//return new CIFirePHP($app['name'], $app['environment']);
-			return new CIFirePHP($app['url']);
+			return new CIFirePHP($app['name'], $app['environment']);
+			//return new CIFirePHP($app['url']);
 		});
 	}
 
