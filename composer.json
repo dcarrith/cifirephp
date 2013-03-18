@@ -23,7 +23,7 @@
     	},
 	"autoload": {
         	"psr-0": {
-            		"dcarrith\\cifirephp": "src/"
+            		"Dcarrith\\CIFirePHP": "src/"
         	}
     	},
 	"minimum-stability": "dev"
