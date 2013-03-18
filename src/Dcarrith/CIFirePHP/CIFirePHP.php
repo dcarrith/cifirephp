@@ -1,4 +1,4 @@
-<?php namespace dcarrith\CIFirePHP;
+<?php namespace Dcarrith\CIFirePHP;
 
 use Monolog\Logger;
 use Monolog\Handler\FirePHPHandler;
