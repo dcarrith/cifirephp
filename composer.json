@@ -1,0 +1,13 @@
+{
+	"name": "dcarrith/cifirephp",
+	"description": "A wrapper class for backwards compatibility with the old FirePHP library that was available for CodeIgniter",
+	"repositories": [
+        	{
+        		"type": "vcs",
+        		"url": "https://github.com/dcarrith/cifirephp"
+        	}
+    	],
+    	"require": {
+		"monolog/monolog": "1.3.*"
+    	}
+}
