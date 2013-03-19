@@ -5,36 +5,64 @@ use Monolog\Handler\FirePHPHandler;
 
 class CIFirePHP {
 
-        private $_dummy;
-        private $_logger;
+        private static $_dummy;
+        private static $_logger;
 
-        function __construct($name, $environment) {
+	public static $name;
+	public static $environment;
 
-		$dummy = false;
+        function __construct() { }
 
-                if($environment == "production"){
-                        $dummy = true;
-                }
+	public static function setName($name) { 
+		self::$name = $name;
+	}
 
-		$this->_dummy = $dummy;
+	public static function setEnvironment($environment) {
+	
+		if($environment == "development") {
+			self::$_dummy = false;
+		} else {
+			self::$_dummy = true;
+		}
 
-                if (!$dummy) {
+		self::$environment = $environment;
+	}
 
-                        $this->_logger = new Logger($name);
-                        $this->_logger->pushHandler(new FirePHPHandler());
-                        $this->_logger->addInfo("Logger has been initialized.");
-                }
-        }
+	public static function createLogger() {
 
-        function log($variable, $label) {
+                self::$_logger = new Logger(self::$name);
+                self::$_logger->pushHandler(new FirePHPHandler()); 
+	}
 
-                if (!$this->_dummy) {
-			if (!is_array($label)) {
-				$label = array($label);
-			}
-                        $this->_logger->addInfo($variable, $label);
-                }
-        }
+	public static function log($variable, $label) {
+				
+		if(!isset(self::$_logger)) {
+
+			// trigger a PHP notice that someone tried to use the log function before createLogger was called
+			trigger_error("LoggerNotInitialized", E_USER_NOTICE);
+        				
+			// trigger_error does not stop the function so we must return control here
+			return;
+		}
+
+		if(!isset(self::$environment)) {
+                        
+			// trigger a PHP notice that someone tried to use the log function before setting the environment
+                        trigger_error("EnvironmentNotInitialized", E_USER_NOTICE);
+                                        
+                        // trigger_error does not stop the function so we must return control here
+                        return;
+		}
+
+		if(!self::$_dummy) {
+
+                        if (!is_array($variable)) {
+                                $variable = array($variable);
+                        }
+
+                        self::$_logger->addInfo($label, $variable);
+		}
+	}
 }
 
 ?>
