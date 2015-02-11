@@ -19,7 +19,7 @@ class CIFirePHPServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->package('dcarrith/cifirephp');
+		//$this->package('dcarrith/cifirephp');
 	}
 
 	/**
